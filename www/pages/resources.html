@@ -1,0 +1,60 @@
+<ons-page>
+    <ons-toolbar>
+    <div class="left">
+        <ons-toolbar-button onclick="fn.open()">
+        <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+    </div>
+    <div class="center">
+        Resources
+    </div>
+    <div class="right">
+    </div>
+    </ons-toolbar>
+
+    <!-- CONTENT START -->
+
+    <div id="card-data" style="height: 200px; padding: 1px 0 0 0; margin:auto;">
+    <div class="card card--material">
+        <p>Loading upcoming events...</p>
+        <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+
+    </div>
+
+    <!-- CONTENT FINISH -->
+    <script>
+    $.ajax({
+        url: 'https://macabre-pirate-33240.herokuapp.com/',
+        type: 'get',
+        success: function(result){
+            console.log(result);
+            result = htmlspecialchars_decode(result);
+            result = JSON.parse(result);
+
+            var html = '';
+            result.forEach(function (item) {
+                html += '<div class="card">\n' +
+                    '        <img src="'+item.image+'" alt="Teen Event" width="100%">\n' +
+                    '        <h2 class="card__title card--material__title">'+item.title+'</h2>\n' +
+                    '        <div class="card__content card--material__content">\n' +
+                    '            <ons-list>\n' +
+                    '            <ons-list-item modifier="nodivider">\n' +
+                    '              <div class="list-item__center">'+item.location+'</div>\n' +
+                    '            </ons-list-item>\n' +
+                    '              <ons-list-item modifier="nodivider">\n' +
+                    '              <div class="list-item__center">'+item.date+'</div>\n' +
+                    '            </ons-list-item>\n' +
+                    '            <ons-list-item modifier="nodivider">\n' +
+                    '              <div class="list-item__center">'+item.body+'</div>\n' +
+                    '            </ons-list-item>\n' +
+                    '          </ons-list>\n' +
+                    '        </div>\n' +
+                    '      </div>';
+            });
+
+            $('#card-data').html(html);
+        }
+    })
+    </script>
+</ons-page>

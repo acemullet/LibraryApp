@@ -1,0 +1,46 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+        <div class="center">
+            Salinas Library App
+        </div>
+        <div class="right">
+
+        </div>
+    </ons-toolbar>
+
+    <!-- Library ID -->
+    <div class="" style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card card--material" style=" text-align: center; ">
+            <div class="card__title card--material__title">
+                Library ID
+            </div>
+            <svg id="home-digital-id"> </svg>
+
+            <script>
+            if( storage.getItem("userId") != null ){
+                var storedId = storage.getItem("userId");
+
+                JsBarcode("#home-digital-id", storedId, {
+                format: "codabar",
+                lineColor: "#000",
+                });
+
+            }
+            </script>
+        </div>
+    </div>
+
+    <script>
+        var ref = window.open('http://apache.org', '_blank', 'location=yes');
+        ref.addEventListener('loadstart', function(event) { alert(event.url); });
+    </script>
+
+
+    <script type="text/javascript" src="js/index.js"></script>
+
+</ons-page>
