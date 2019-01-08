@@ -1,0 +1,63 @@
+
+.wrapper{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: 100px 600px 100px;
+  text-align:center;
+
+}
+
+.header{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+
+}
+
+.footer{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+
+}
+
+.menu-button{
+  background-color: #000;
+  grid-column: 1/3;
+
+}
+
+.header-text{
+  background-color: #fff;
+  grid-column: 3/11;
+
+}
+
+.search-button{
+  background-color: #000;
+  grid-column: 11/-1;
+
+}
+
+.profile-button{
+  background-color: #000;
+  grid-column: 1/3;
+
+}
+
+.home-button{
+  background-color: #fff;
+  grid-column: 3/11;
+
+}
+
+.config-button{
+  background-color: #000;
+  grid-column: 11/-1;
+
+}
+
+.resources-text{
+  background-color: magenta;
+
+}

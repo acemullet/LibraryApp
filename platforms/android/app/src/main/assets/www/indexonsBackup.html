@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="onsen-css/onsenui.css">
+  <link rel="stylesheet" type="text/css" href="onsen-css/onsen-css-components.min.css">
+  <script src="onsen-js/onsenui.min.js"></script>
+
+  <script>
+  window.fn = {};
+
+  window.fn.open = function() {
+    var menu = document.getElementById('menu');
+    menu.open();
+  };
+
+  window.fn.load = function(page) {
+    var content = document.getElementById('content');
+    var menu = document.getElementById('menu');
+    content.load(page)
+      .then(menu.close.bind(menu));
+  };
+  </script>
+
+</head>
+<body>
+  <ons-splitter>
+    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+          <ons-list-item onclick="fn.load('home.html')" tappable>
+            Home
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('resources.html')" tappable>
+            Resources
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('about.html')" tappable>
+            About
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+  </ons-splitter>
+
+  <template id="home.html">
+
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">Salinas Library App</div>
+        <div class="right">
+          <ons-toolbar-button>Button</ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <!-- Content Start -->
+
+
+
+      <!-- Content End -->
+
+    </ons-page>
+  </template>
+
+  <template id="resources.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Resources
+        </div>
+      </ons-toolbar>
+
+      <!-- Content Start -->
+
+      <div class = "" style="height: 200px; padding: 1px 0 0 0;">
+
+        <div class="card card--material">
+          <div class="card__title card--material__title">Event #1</div>
+          <img src="images/ccl.jpg" alt="Onsen UI" style="width: 100%" />
+
+          <div class="card__content card--material__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+        <div class="card card--material">
+          <div class="card__title card--material__title">Event #2</div>
+          <img src="images/ccl.jpg" alt="Onsen UI" style="width: 100%" />
+
+          <div class="card__content card--material__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+        <div class="card card--material">
+          <div class="card__title card--material__title">Event #3</div>
+          <img src="images/ccl.jpg" alt="Onsen UI" style="width: 100%" />
+
+          <div class="card__content card--material__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+        <div class="card card--material">
+          <div class="card__title card--material__title">Event #4</div>
+          <img src="images/ccl.jpg" alt="Onsen UI" style="width: 100%" />
+
+          <div class="card__content card--material__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+        <div class="card card--material">
+          <div class="card__title card--material__title">Event #5</div>
+          <img src="images/ccl.jpg" alt="Onsen UI" style="width: 100%" />
+
+          <div class="card__content card--material__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+      </div>
+
+      <!-- Content End -->
+
+    </ons-page>
+  </template>
+
+  <template id="about.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          About
+        </div>
+      </ons-toolbar>
+    </ons-page>
+  </template>
+  </body>
+</html>

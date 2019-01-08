@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <link rel="stylesheet" type="text/css" href="onsen-css/onsenui.css">
+  <link rel="stylesheet" type="text/css" href="onsen-css/onsen-css-components.min.css">
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="onsen-js/onsenui.min.js"></script>
+  <script src="js/JsBarcode.all.min.js"></script>
+
+  <script>
+    window.fn = {};
+
+    // Slides out the side menu
+    window.fn.open = function() {
+      var menu = document.getElementById('menu');
+      menu.open();
+    };
+
+    // Loads page from menu
+    window.fn.load = function(page){
+      var content = document.getElementById('content');
+      var menu = document.getElementById('menu');
+
+      content.load(page).then(menu.close.bind(menu));
+
+    };
+
+    // Create database
+    var storage = window.localStorage;
+
+
+    // Barcode generator
+    window.fn.barcode = function(){
+
+      var userId = document.getElementById('id-number').value;
+
+      storage.setItem("userId", userId) // Pass a key name and its value to add or update that key.
+
+
+    };
+
+
+    window.fn.display = function(){
+
+      var storedId = storage.getItem("userId");
+
+      JsBarcode("#barcode", storedId, {
+        format: "codabar",
+        lineColor: "#000",
+      });
+
+    };
+
+    // For scanning
+    window.fn.scan = function(){
+      cordova.plugins.barcodeScanner.scan(
+        function (result) {
+            alert("We got a barcode\n" +
+                  "Result: " + result.text + "\n" +
+                  "Format: " + result.format + "\n" +
+                  "Cancelled: " + result.cancelled);
+        },
+        function (error) {
+            alert("Scanning failed: " + error);
+        }
+      );
+    };
+
+    function htmlspecialchars_decode(text)
+    {
+       var replacements = Array("&", "<", ">", '"', "'");
+       var chars = Array("&amp;", "&lt;", "&gt;", "&quot;", "'");
+       for (var i=0; i<chars.length; i++)
+       {
+           var re = new RegExp(chars[i], "gi");
+           if(re.test(text))
+           {
+               text = text.replace(re, replacements[i]);
+           }
+       }
+       return text;
+    }
+
+
+  </script>
+
+
+
+</head>
+  <body>
+    <ons-splitter>
+      <ons-splitter-side id = "menu" side = "left" width = "220px" collapse swipeable>
+        <ons-page>
+          <ons-list>
+
+            <ons-list-item onclick="fn.load('home.html')" tappable>
+              Home
+            </ons-list-item>
+
+            <ons-list-item onclick="fn.load('resources.html')" tappable>
+              Resources
+            </ons-list-item>
+
+            <ons-list-item onclick="fn.load('online-resources.html')" tappable>
+              Online Resources
+            </ons-list-item>
+
+            <ons-list-item onclick="fn.load('library-id.html')" tappable>
+              Library ID
+            </ons-list-item>
+
+            <ons-list-item onclick="fn.load('volunteering-opportunities.html')" tappable>
+              Volunteering
+            </ons-list-item>
+
+            <ons-list-item onclick="fn.load('scanner.html')" tappable>
+              Scanner
+            </ons-list-item>
+
+            <ons-list-item>
+              About
+            </ons-list-item>
+
+          </ons-list>
+        </ons-page>
+      </ons-splitter-side>
+
+      <ons-splitter-content id="content" page="home.html" ></ons-splitter-content>
+
+    </ons-splitter>
+
+    <template id="home.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Salinas Library App
+          </div>
+          <div class="right">
+
+          </div>
+        </ons-toolbar>
+
+        <!-- Library ID -->
+        <div class="" style="height: 200px; padding: 1px 0 0 0;">
+          <div class="card card--material" style=" text-align: center; ">
+            <div class="card__title card--material__title">
+              Library ID
+            </div>
+            <svg id="home-digital-id"> </svg>
+
+            <script>
+              if( storage.getItem("userId") != null ){
+                var storedId = storage.getItem("userId");
+
+                JsBarcode("#home-digital-id", storedId, {
+                  format: "codabar",
+                  lineColor: "#000",
+                });
+
+              }
+            </script>
+          </div>
+
+        </div>
+        <script type="text/javascript" src="js/index.js"></script>
+
+      </ons-page>
+    </template>
+
+    <template id="volunteering-opportunities.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Volunteering Opportunities
+          </div>
+          <div class="right">
+
+          </div>
+        </ons-toolbar>
+      </ons-page>
+    </template>
+
+    <template id="resources.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Resources
+          </div>
+          <div class="right">
+          </div>
+        </ons-toolbar>
+
+        <!-- CONTENT START -->
+
+        <div id="card-data" style="height: 200px; padding: 1px 0 0 0;">
+          <div class="card card--material">
+            <div class="card__title card--material__title">
+              AHHHH!!
+            </div>
+            <img src="images/screamo.jpg" alt="Onsen UI" width="100%" />
+            <div class="card__content card--material__content">
+              Local man yelling in Library this Friday. Tickets available for locals only. Bring food to share and to throw at him.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CONTENT FINISH -->
+        <script>
+          $.ajax({
+              url: 'https://macabre-pirate-33240.herokuapp.com/',
+              type: 'get',
+              success: function(result){
+                  console.log(result);
+                  result = htmlspecialchars_decode(result);
+                  result = JSON.parse(result);
+
+                  var html = '';
+                  result.forEach(function (item) {
+                      html += '<div class="card">\n' +
+                          '        <img src="'+item.image+'" alt="Teen Event" width="100%">\n' +
+                          '        <h2 class="card__title card--material__title">'+item.title+'</h2>\n' +
+                          '        <div class="card__content card--material__content">\n' +
+                          '            <ons-list>\n' +
+                          '            <ons-list-item modifier="nodivider">\n' +
+                          '              <div class="list-item__center">'+item.location+'</div>\n' +
+                          '            </ons-list-item>\n' +
+                          '              <ons-list-item modifier="nodivider">\n' +
+                          '              <div class="list-item__center">'+item.date+'</div>\n' +
+                          '            </ons-list-item>\n' +
+                          '            <ons-list-item modifier="nodivider">\n' +
+                          '              <div class="list-item__center">'+item.body+'</div>\n' +
+                          '            </ons-list-item>\n' +
+                          '          </ons-list>\n' +
+                          '        </div>\n' +
+                          '      </div>';
+                  });
+
+                  $('#card-data').html(html);
+              }
+          })
+        </script>
+      </ons-page>
+
+    </template>
+
+    <template id="online-resources.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Online Resources
+          </div>
+          <div class="right">
+
+          </div>
+        </ons-toolbar>
+
+        <ons-card>
+          <a href="http://www.hoopladigital.com" target="iframe">
+          <img src="images/hoopla-logo-blue.png" style="width: 100%" />
+          </a>
+          <div class="content">
+            <div>
+              Your public library at your fingertips. Anytime. Anywhere. ;)
+            </div>
+          </div>
+        </ons-card>
+        <script>
+        window.open('https://google.com', '_self ', 'location=yes');
+
+        </script>
+      </ons-page>
+    </template>
+
+    <template id="library-id.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Digital ID
+          </div>
+          <div class="right">
+
+          </div>
+        </ons-toolbar>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <p>
+            <ons-input id="id-number" modifier="underbar" placeholder="Your library id number" maxlength="14" float></ons-input>
+          </p>
+
+          <p style="margin-top: 30px;">
+            <ons-button onclick="fn.barcode()">Generate Library Card</ons-button>
+          </p>
+
+          <svg id="barcode"></svg>
+
+          <p style="margin-top: 30px;">
+            <ons-button onclick="fn.display()">Display ID</ons-button>
+          </p>
+
+        </div>
+
+
+      </ons-page>
+    </template>
+
+
+    <template id="scanner.html">
+      <ons-page>
+        <div style="text-align: center; margin-top: 30px;">
+
+          <p style="margin-top: 30px;">
+            <ons-button onclick="fn.scan()">Scan</ons-button>
+          </p>
+
+        </div>
+      </ons-page>
+    </template>
+
+  </body>
+
+</html>
